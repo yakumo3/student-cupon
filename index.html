@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/lib/validationEngine.jquery.css">
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src="js/register.js"></script>
+  <!-- ▼バリデーション -->
+  <script src="js/lib/jquery.validationEngine.js"></script>
+  <script src="js/lib/jquery.validationEngine-ja.js"></script>
+  <script>
+  $(function() {
+    $("#input_group").validationEngine();
+  });
+  </script>
+  <title>学生登録フォーム</title>
+</head>
+
+<body>
+  <section>
+    <h1>学生登録フォーム</h1>
+    <form id="input_group">
+      <div>
+        <p><span class="ate1">必須</span>名前：</p>
+        <p>
+          <input type="text" name="name" class="input_text validate[required]" placeholder="名前">
+        </p>
+      </div>
+      <div>
+        <p><span class="ate1">必須</span>大学メール：</p>
+        <p>
+          <input type="email" name="email" class="input_text validate[custom[email],required]" placeholder="E-mail">
+        </p>
+      </div>
+      <div>
+        <p><span class="ate1">必須</span>性別：</p>
+        <input type="radio" name="sex" value="0" id="malee" class="input_radio validate[required]">
+        <label for="malee">男</label>
+        <br>
+        <input type="radio" name="sex" value="1" id="famalee" class="input_radio validate[required]">
+        <label for="famalee">女</label>
+      </div>
+      <div>
+        <p><span class="ate1">必須</span>学校名：</p>
+        <p>
+          <input type="text" name="university" class="input_text validate[required]" placeholder="学校名">
+        </p>
+      </div>
+      <div>
+        <p><span class="ate1">必須</span>学部・学科名：</p>
+        <p>
+          <input type="text" name="university" class="input_text validate[required]" placeholder="学部・学科名">
+        </p>
+      </div>
+      <div>
+        <p><span class="ate1">必須</span>進路：</p>
+        <input type="radio" name="career" value="0" id="employment" class="input_radio validate[required]">
+        <label for="employment">就職</label>
+        <br>
+        <input type="radio" name="career" value="1" id="school" class="input_radio validate[required]">
+        <label for="school">進学</label>
+      </div>
+      <div>
+        <input type="submit" value="送信する" class="submit_btn">
+      </div>
+    </form>
+  </section>
+</body>
+
+</html>
