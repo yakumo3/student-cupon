@@ -25,20 +25,13 @@ $(function() {
 			})
 			// ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
 			.done(function(response) {
-				if (response.data = 'error') {
-					alert('登録済みのアドレスです。');
-					alert(response.data);
-				} else {
-					alert("登録成功");
-					alert(response.data);
-				}
+				alert("登録成功");
 			})
 			// ・サーバからステータスコード400などが返ってきたとき
 			// ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
 			// ・通信に失敗したとき
 			.fail(function() {
-				$('#result').html('失敗');
-				alert("failed ajax");
+				alert("登録に失敗しました");
 			});
 
 		return e.preventDefault();
