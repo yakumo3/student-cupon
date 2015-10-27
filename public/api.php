@@ -1,16 +1,13 @@
 <?php
-
-$dsn = 'mysql:dbname=test;host=localhost';
-$user = 'root';
-$password = 'root';
+include_once(dirname(__FILE__) . "/../config.php");
 
 try{
-	$pdo = new PDO($dsn, $user, $password);
+	$pdo = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
 
 	// sql実行時のエラーをexceptionでとるようにする
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	$stmt = $pdo -> prepare("INSERT INTO USERS (NAME, SEX, MAIL, UNIVERSITY, DEPARTMENT, CAREER) VALUES (:name, :sex, :mail, :university, :department, :career)");
+	$stmt = $pdo -> prepare("INSERT INTO users (name, sex, email, university, department, career) VALUES (:name, :sex, :mail, :university, :department, :career)");
 
 	$stmt -> bindValue(':name', $_POST['name'], PDO::PARAM_STR);
 	$stmt -> bindValue(':sex', $_POST['sex'], PDO::PARAM_INT);
