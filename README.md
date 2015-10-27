@@ -1,1 +1,1 @@
-# docker-student-cupon
+# student-cupon
