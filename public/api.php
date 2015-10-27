@@ -8,6 +8,11 @@ function response($response_code, $data) {
 	echo $body;
 }
 
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+	response(405, array("result"=>"error", "message"=>"method not allowed"));
+	exit(0);
+}
+
 try{
 	$pdo = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
 
@@ -23,11 +28,11 @@ try{
 	$stmt->bindValue(':department', $_POST['department'], PDO::PARAM_STR);
 	$stmt->bindValue(':career', $_POST['career'], PDO::PARAM_INT);
 
-	$stmt ->execute();
+	$stmt->execute();
 
 	// 成功
 	response(200, array("result"=>"success"));
-//重複するレコードがあればエラー
+
 }catch (PDOException $e){
 	response(500, array("result"=>"error", "message"=>"database exception"));
 }
