@@ -30,8 +30,13 @@ $(function() {
 			// ・サーバからステータスコード400などが返ってきたとき
 			// ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
 			// ・通信に失敗したとき
-			.fail(function() {
-				alert("登録に失敗しました");
+			.fail(function(err) {
+				var response = err.responseJSON;
+				if(response.message == "duplicated") {
+					alert("メールアドレスが既に登録されています");
+				} else {
+					alert("登録に失敗しました");
+				}
 			});
 
 		return e.preventDefault();

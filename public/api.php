@@ -19,6 +19,17 @@ try{
 	// sql実行時のエラーをexceptionでとるようにする
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+	// 重複チェック
+	$stmt = $pdo->prepare("SELECT COUNT(id) AS count FROM users WHERE email = :mail");
+	$stmt->bindValue(':mail', $_POST['mail'], PDO::PARAM_STR);
+	$stmt->execute();
+	$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	if ($result["count"] > 0) {
+		response(422, array("result"=>"error", "message"=>"duplicated"));
+		exit(0);
+	}
+
+	// 登録
 	$stmt = $pdo->prepare("INSERT INTO users (name, sex, email, university, department, career) VALUES (:name, :sex, :mail, :university, :department, :career)");
 
 	$stmt->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
