@@ -30,14 +30,13 @@ try{
 	}
 
 	// 登録
-	$stmt = $pdo->prepare("INSERT INTO users (name, sex, email, university, department, career) VALUES (:name, :sex, :mail, :university, :department, :career)");
+	$stmt = $pdo->prepare("INSERT INTO users (name, sex, email, university, department) VALUES (:name, :sex, :mail, :university, :department)");
 
 	$stmt->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
 	$stmt->bindValue(':sex', $_POST['sex'], PDO::PARAM_INT);
 	$stmt->bindValue(':mail', $_POST['mail'], PDO::PARAM_STR);
 	$stmt->bindValue(':university', $_POST['university'], PDO::PARAM_STR);
 	$stmt->bindValue(':department', $_POST['department'], PDO::PARAM_STR);
-	$stmt->bindValue(':career', $_POST['career'], PDO::PARAM_INT);
 
 	$stmt->execute();
 
