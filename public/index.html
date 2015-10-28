@@ -3,9 +3,20 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="css/style.css">
+  <script>
+  (function(){
+    var _UA = navigator.userAgent;
+    if (_UA.indexOf('iPhone') > -1 || _UA.indexOf('iPod') > -1 || _UA.indexOf('Android') > -1) {
+      document.write('<link rel="stylesheet" href="css/lib/jquery.mobile-1.4.5.min.css">');
+    }else{
+      document.write('<link rel="stylesheet" href="css/pc.css">');
+    }
+  })();
+</script>
   <link rel="stylesheet" href="css/lib/validationEngine.jquery.css">
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+  <script src="js/lib/jquery-1.11.3.min.js"></script>
+  <script src="js/lib/jquery.mobile-1.4.0.min.js"></script>
   <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   <script src="js/register.js"></script>
   <!-- ▼バリデーション -->
@@ -54,7 +65,6 @@
       <div>
         <input type="submit" value="送信する" class="submit_btn">
       </div>
-      <input type="button" value="サブウィンドウを閉じる" onClick="window.close()">
     </form>
   </section>
 </body>

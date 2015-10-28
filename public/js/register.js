@@ -8,11 +8,11 @@ $(function() {
 			return false;
 		}
 
-		// //if invalid do nothing
-		// if(!$("#input_group").validationEngine('validate')){
-		// 	alert("未入力項目があります");
-		// 	return false;
-		// }
+		//if invalid do nothing
+		if(!$("#input_group").validationEngine('validate')){
+			alert("未入力項目があります");
+			return false;
+		}
 
 		// Ajax通信を開始する
 		$.ajax({
@@ -20,14 +20,14 @@ $(function() {
 				type: 'post',
 				dataType: 'json',
 				async: false,
-				data: {
+				data: JSON.stringify({
 					name: $("input[name='name']").val(),
 					mail: $("input[name='email']").val(),
 					sex: $("input[name='sex']").val(),
 					university: $("input[name='university']").val(),
 					department: $("input[name='department']").val(),
 					career: $("input[name='career']").val()
-				}
+				})
 			})
 			// ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
 			.done(function(response) {
