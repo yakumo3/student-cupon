@@ -2,11 +2,17 @@ $(function() {
 
 	$('#input_group').submit(function(e) {
 
-		//if invalid do nothing
-		if(!$("#input_group").validationEngine('validate')){
-			alert("未入力項目があります");
+		// 大学のアドレス
+		if(!$("input[name='email']").val().match(/.+ac\.jp$/)){
+			alert("大学のメールアドレスを入力してください");
 			return false;
 		}
+
+		// //if invalid do nothing
+		// if(!$("#input_group").validationEngine('validate')){
+		// 	alert("未入力項目があります");
+		// 	return false;
+		// }
 
 		// Ajax通信を開始する
 		$.ajax({
@@ -25,7 +31,7 @@ $(function() {
 			})
 			// ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
 			.done(function(response) {
-				alert("登録成功");
+				alert("入力してただいたアドレスにメールを送信しました。\nクーポンコードを記載しておりますので、ご確認ください。");
 			})
 			// ・サーバからステータスコード400などが返ってきたとき
 			// ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
