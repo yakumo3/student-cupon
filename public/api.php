@@ -48,8 +48,32 @@ try{
 
 	$stmt->execute();
 
+	// メール
+	$message = "
+こんにちは、
+
+CROSS 実行委員会　です。
+ユーザー情報をご登録頂きありがとうございます。
+
+学割クーポンを発行いたしましたので、
+チケット購入手続きの際に、ご入力ください。
+
+チケット販売サイトURL
+
+
+その他、ご要望、ご質問などは、
+CROSS公式Facebookページ、Twitterアカウントまでお問い合わせください。
+
+facebook: https://www.facebook.com/engineersupportCROSS
+Twitter : https://twitter.com/e_s_cross"
+;
+
+	mail('$_POST['mail']', '学割クーポン発行のお知らせ', $message);
+
 	// 成功
 	response(200, array("result"=>"success"));
+
+	https://github.com/X2k16/student-cupon.git
 
 }catch (PDOException $e){
 	response(500, array("result"=>"error", "message"=>"database exception"));
