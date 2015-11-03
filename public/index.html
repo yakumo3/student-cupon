@@ -3,68 +3,79 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <link rel="stylesheet" href="css/lib/validationEngine.jquery.css">
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-  <script src="js/register.js"></script>
+
+  <script src="js/lib/jquery-1.11.3.min.js"></script>
+
   <!-- ▼バリデーション -->
   <script src="js/lib/jquery.validationEngine.js"></script>
   <script src="js/lib/jquery.validationEngine-ja.js"></script>
+  <script src="js/lib/jquery.validate.min.js"></script>
+
   <script>
-  $(function() {
-    $("#input_group").validationEngine();
-  });
+  (function(){
+    var _UA = navigator.userAgent;
+    if (_UA.indexOf('iPhone') > -1 || _UA.indexOf('iPod') > -1 || _UA.indexOf('Android') > -1) {
+      document.write('<link rel="stylesheet" href="css/lib/jquery.mobile-1.4.5.min.css">');
+      document.write('<script src="js/lib/jquery.mobile-1.4.5.min.js"><\/script>');
+      document.write('<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"><\/script>');
+      document.write('<script src="js/mobile.js"><\/script>');
+    }else{
+      document.write('<link rel="stylesheet" href="css/pc.css">');
+      document.write('<script src="js/pc.js"><\/script>');
+    }
+  })();
   </script>
-  <title>学生登録フォーム</title>
+   <script src="js/register.js"></script>
+
+  <title>学割クーポン発行ページ</title>
 </head>
 
 <body>
   <section>
-    <h1>学生登録フォーム</h1>
+  <div id="mobile_img" style="display: none"><img src="css/mobile.jpg" width="100%" ></div>
+    <h1>学割クーポン発行フォーム</h1>
     <form id="input_group">
       <div>
-        <p><span class="ate1">必須</span>名前：</p>
+        <p><span class="ate1"></span>名前：</p>
         <p>
-          <input type="text" name="name" class="input_text validate[required]" placeholder="名前">
+          <input type="text" name="name" class="input_text validate[required] required" placeholder="クロス　太郎">
+          <span class="error-place"></span>
         </p>
       </div>
       <div>
-        <p><span class="ate1">必須</span>大学メール：</p>
+        <p><span class="ate1"></span>大学メール(末尾が ac.jp)：</p>
         <p>
-          <input type="email" name="email" class="input_text validate[custom[email],required]" placeholder="E-mail">
+        <input type="email" name="email" class="input_text validate[required] required" placeholder="cross2016@cross.ac.jp">
+        <span id="mail_error" class="error-place"></span></p>
+      </div>
+      <div>
+        <p><span class="ate1"></span>性別：</p>
+        <input type="radio" name="sex" value="0" id="male" class="validate[required] required">
+        <label for="male">男</label>
+
+        <input type="radio" name="sex" value="1" id="famale" class="validate[required] required">
+        <span class="error-place"></span>
+        <label for="famale">女</label>
+      </div>
+      <div>
+        <p><span class="ate1"></span>学校名：</p>
+        <p>
+          <input type="text" name="university" class="input_text validate[required] required" placeholder="クロス大学">
+          <span class="error-place"></span>
         </p>
       </div>
       <div>
-        <p><span class="ate1">必須</span>性別：</p>
-        <input type="radio" name="sex" value="0" id="malee" class="input_radio validate[required]">
-        <label for="malee">男</label>
-        <br>
-        <input type="radio" name="sex" value="1" id="famalee" class="input_radio validate[required]">
-        <label for="famalee">女</label>
-      </div>
-      <div>
-        <p><span class="ate1">必須</span>学校名：</p>
+        <p><span class="ate1"></span>学部・学科名：</p>
         <p>
-          <input type="text" name="university" class="input_text validate[required]" placeholder="学校名">
+          <input type="text" name="department" class="input_text validate[required] required" placeholder="エンジニアリング学部">
+          <span class="error-place"></span>
         </p>
       </div>
       <div>
-        <p><span class="ate1">必須</span>学部・学科名：</p>
-        <p>
-          <input type="text" name="department" class="input_text validate[required]" placeholder="学部・学科名">
-        </p>
-      </div>
-      <div>
-        <p><span class="ate1">必須</span>進路：</p>
-        <input type="radio" name="career" value="0" id="employment" class="input_radio validate[required]">
-        <label for="employment">就職</label>
-        <br>
-        <input type="radio" name="career" value="1" id="school" class="input_radio validate[required]">
-        <label for="school">進学</label>
-      </div>
-      <div>
-        <input type="submit" value="送信する" class="submit_btn">
+        <input type="submit" value="登録する" class="submit_btn">
       </div>
     </form>
   </section>
