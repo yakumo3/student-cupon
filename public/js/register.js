@@ -34,6 +34,7 @@ $(function() {
 				type: 'post',
 				dataType: 'json',
 				async: false,
+				contentType: "application/json",
 				data: JSON.stringify({
 					name: $("input[name='name']").val(),
 					mail: $("input[name='email']").val(),
