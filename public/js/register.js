@@ -1,18 +1,31 @@
 $(function() {
 
 	$('#input_group').submit(function(e) {
+		var _UA = navigator.userAgent;
+		$("#mail_error").html("");
 
-		if($('#input_group').find('.error')){
-			alert("未入力項目があります");
-			return false;
+		if (_UA.indexOf('iPhone') > -1 || _UA.indexOf('iPod') > -1 || _UA.indexOf('Android') > -1) {
+			//if invalid do nothing
+			if(!$("#input_group").valid() && !$("input[name='email']").val()){
+				alert("未入力項目があります");
+				return false;
 
-		} else if($('#input_group').find('.formErrorContent')){
-			alert("未入力項目があります");
-			return false;
+			} else if(!$("input[name='email']").val().match(/.+ac\.jp$/)){
+				alert("大学のメールアドレスを入力してください");
+				$("#mail_error").html("大学のメールアドレスを入力してください");
+				return false;
+			}
 
-		} else if(!$("input[name='email']").val().match(/.+ac\.jp$/)){
-			alert("大学のメールアドレスを入力してください");
-			return false;
+		}else{
+		//if invalid do nothing
+			if(!$("#input_group").validationEngine('validate')){
+				alert("未入力項目があります");
+				return false;
+
+			} else if(!$("input[name='email']").val().match(/.+ac\.jp$/)){
+				alert("大学のメールアドレスを入力してください");
+				return false;
+			}
 		}
 
 		// Ajax通信を開始する
