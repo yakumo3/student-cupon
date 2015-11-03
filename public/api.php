@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 	exit(0);
 }
 
-$json_string = file_get_contents('php://input'); ##今回のキモ
+$json_string = file_get_contents('php://input');
 $data = json_decode($json_string, TRUE);
 
 if ($data === NULL) {
