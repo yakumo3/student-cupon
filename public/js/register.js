@@ -2,15 +2,16 @@ $(function() {
 
 	$('#input_group').submit(function(e) {
 
-		// 大学のアドレス
-		if(!$("input[name='email']").val().match(/.+ac\.jp$/)){
-			alert("大学のメールアドレスを入力してください");
-			return false;
-		}
-
-		//if invalid do nothing
-		if(!$("#input_group").validationEngine('validate')){
+		if($('#input_group').find('.error')){
 			alert("未入力項目があります");
+			return false;
+
+		} else if($('#input_group').find('.formErrorContent')){
+			alert("未入力項目があります");
+			return false;
+
+		} else if(!$("input[name='email']").val().match(/.+ac\.jp$/)){
+			alert("大学のメールアドレスを入力してください");
 			return false;
 		}
 

@@ -8,10 +8,10 @@
 
   <script src="js/lib/jquery-1.11.3.min.js"></script>
 
-  <script src="js/register.js"></script>
   <!-- ▼バリデーション -->
   <script src="js/lib/jquery.validationEngine.js"></script>
   <script src="js/lib/jquery.validationEngine-ja.js"></script>
+  <script src="js/lib/jquery.validate.min.js"></script>
 
   <script>
   (function(){
@@ -27,44 +27,50 @@
     }
   })();
   </script>
+   <script src="js/register.js"></script>
 
   <title>学割クーポン発行ページ</title>
 </head>
 
 <body>
   <section>
+  <div id="mobile_img" style="display: none"><img src="css/mobile.jpg"></div>
     <h1>学割クーポン発行フォーム</h1>
     <form id="input_group">
       <div>
         <p><span class="ate1"></span>名前：</p>
         <p>
-          <input type="text" name="name" class="input_text validate[required]" placeholder="クロス　太郎">
+          <input type="text" name="name" class="input_text validate[required] required" placeholder="クロス　太郎">
+          <span class="error-place"></span>
         </p>
       </div>
       <div>
         <p><span class="ate1"></span>大学メール(末尾が ac.jp)：</p>
         <p>
-          <input type="email" name="email" class="input_text validate[required]" placeholder="cross2016@cross.ac.jp">
-        </p>
+        <input type="email" name="email" class="input_text validate[required] required email" placeholder="cross2016@cross.ac.jp">
+        <span class="error-place"></span></p>
       </div>
       <div>
         <p><span class="ate1"></span>性別：</p>
-        <input type="radio" name="sex" value="0" id="male" class="validate[required]">
+        <input type="radio" name="sex" value="0" id="male" class="validate[required] required">
         <label for="male">男</label>
 
-        <input type="radio" name="sex" value="1" id="famale" class="validate[required]">
+        <input type="radio" name="sex" value="1" id="famale" class="validate[required] required">
+        <span class="error-place"></span>
         <label for="famale">女</label>
       </div>
       <div>
         <p><span class="ate1"></span>学校名：</p>
         <p>
-          <input type="text" name="university" class="input_text validate[required]" placeholder="クロス大学">
+          <input type="text" name="university" class="input_text validate[required] required" placeholder="クロス大学">
+          <span class="error-place"></span>
         </p>
       </div>
       <div>
         <p><span class="ate1"></span>学部・学科名：</p>
         <p>
-          <input type="text" name="department" class="input_text validate[required]" placeholder="エンジニアリング学部">
+          <input type="text" name="department" class="input_text validate[required] required" placeholder="エンジニアリング学部">
+          <span class="error-place"></span>
         </p>
       </div>
       <div>
