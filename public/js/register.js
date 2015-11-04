@@ -22,10 +22,10 @@ $(function() {
 				alert("未入力項目があります");
 				return false;
 
-			} else if(!$("input[name='email']").val().match(/.+ac\.jp$/)){
-				alert("大学のメールアドレスを入力してください");
-				return false;
-			}
+			// } else if(!$("input[name='email']").val().match(/.+ac\.jp$/)){
+			// 	alert("大学のメールアドレスを入力してください");
+			// 	return false;
+			// }
 		}
 
 		// Ajax通信を開始する
