@@ -8,6 +8,38 @@ function response($response_code, $data) {
 	echo $body;
 }
 
+function sendmail($to, $coupon){
+	// 言語と文字エンコーディングを正しくセット
+	mb_language("Japanese");
+	mb_internal_encoding("UTF-8");
+
+// メール
+	$message = "
+こんにちは、
+
+CROSS 実行委員会　です。
+ユーザー情報をご登録頂きありがとうございます。
+
+学割クーポンを発行いたしましたので、
+チケット購入手続きの際に、ご入力ください。
+
+クーポンコード       : $coupon
+チケット販売サイトURL : https://peatix.com/sales/event/125846/tickets
+
+
+その他、ご要望、ご質問などは、
+CROSS公式Facebookページ、Twitterアカウントまでお問い合わせください。
+
+facebook: https://www.facebook.com/engineersupportCROSS
+Twitter : https://twitter.com/e_s_cross"
+;
+
+	$subject = '学割クーポン発行のお知らせ';
+	$headers = 'From: invitation@cross-party.com';
+
+	mb_send_mail($to, $subject, $message, $headers);
+}
+
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 	response(405, array("result"=>"error", "message"=>"method not allowed"));
 	exit(0);
@@ -48,32 +80,27 @@ try{
 
 	$stmt->execute();
 
-	// メール
-	$message = "
-こんにちは、
+	// 登録したユーザのIDを取得
+	$stmt = $pdo->prepare("SELECT id FROM users WHERE email=:mail limit 1");
 
-CROSS 実行委員会　です。
-ユーザー情報をご登録頂きありがとうございます。
+	$stmt->bindValue(':mail', $data['mail'], PDO::PARAM_STR);
+	$stmt->execute();
+	$uid = $stmt->fetchColumn();
 
-学割クーポンを発行いたしましたので、
-チケット購入手続きの際に、ご入力ください。
+	// メールとクーポンコードを紐付け
+	$stmt = $pdo->prepare("UPDATE email_coupon_relation SET uid=$uid where uid is NULL limit 1");
+	$stmt->execute();
 
-チケット販売サイトURL
+	// ひも付けたクーポンを取得
+	$stmt = $pdo->prepare("SELECT coupon FROM email_coupon_relation WHERE uid=$uid limit 1");
+	$stmt->execute();
+	$coupon = $stmt->fetchColumn();
 
-
-その他、ご要望、ご質問などは、
-CROSS公式Facebookページ、Twitterアカウントまでお問い合わせください。
-
-facebook: https://www.facebook.com/engineersupportCROSS
-Twitter : https://twitter.com/e_s_cross"
-;
-
-	mail('$_POST['mail']', '学割クーポン発行のお知らせ', $message);
+	// メール送信
+	sendmail($data['mail'], $coupon);
 
 	// 成功
 	response(200, array("result"=>"success"));
-
-	https://github.com/X2k16/student-cupon.git
 
 }catch (PDOException $e){
 	response(500, array("result"=>"error", "message"=>"database exception"));
