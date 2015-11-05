@@ -13,6 +13,12 @@ function sendmail($to, $coupon){
 	mb_language("Japanese");
 	mb_internal_encoding("UTF-8");
 
+	$params = array(
+	  "host" => ini_get("SMTP"),   // SMTPサーバー名
+	  "port" => 25,              // ポート番号
+	  "auth" => false,            // SMTP認証を使用する
+	);
+
 // メール
 	$message = "
 こんにちは、
@@ -35,9 +41,16 @@ Twitter : https://twitter.com/e_s_cross"
 ;
 
 	$subject = '学割クーポン発行のお知らせ';
-	$headers = 'From: invitation@cross-party.com';
 
-	mb_send_mail($to, $subject, $message, $headers);
+	$headers = array(
+	  "To" => $to,
+	  "From" => "invitation@cross-party.com",
+	  "Subject" => mb_encode_mimeheader($subject)
+	);
+
+	$message = mb_convert_encoding($message, "ISO-2022-JP", "auto");
+	$mailObject = Mail::factory("smtp", $params);
+	return $mailObject->send($to, $headers, $message);
 }
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -99,7 +112,9 @@ try{
 	$code = $stmt->fetchColumn();
 
 	// メール送信
-	sendmail($data['mail'], $code);
+	if (!sendmail($data['mail'], $code)){
+
+	};
 
 	// 成功
 	response(200, array("result"=>"success"));
