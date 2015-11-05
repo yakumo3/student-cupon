@@ -85,19 +85,21 @@ try{
 
 	$stmt->bindValue(':mail', $data['mail'], PDO::PARAM_STR);
 	$stmt->execute();
-	$uid = $stmt->fetchColumn();
+	$user_id = $stmt->fetchColumn();
 
 	// メールとクーポンコードを紐付け
-	$stmt = $pdo->prepare("UPDATE email_coupon_relation SET uid=$uid where uid is NULL limit 1");
+	$stmt = $pdo->prepare("UPDATE cupons SET user_id=:user_id where user_id is NULL limit 1");
+	$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 	$stmt->execute();
 
 	// ひも付けたクーポンを取得
-	$stmt = $pdo->prepare("SELECT coupon FROM email_coupon_relation WHERE uid=$uid limit 1");
+	$stmt = $pdo->prepare("SELECT code FROM cupons WHERE user_id=:user_id limit 1");
+	$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 	$stmt->execute();
-	$coupon = $stmt->fetchColumn();
+	$code = $stmt->fetchColumn();
 
 	// メール送信
-	sendmail($data['mail'], $coupon);
+	sendmail($data['mail'], $code);
 
 	// 成功
 	response(200, array("result"=>"success"));
