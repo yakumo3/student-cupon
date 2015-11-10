@@ -1,4 +1,4 @@
 <?php
-define("DB_DSN", 'mysql:dbname=table;host=localhost');
+define("DB_DSN", 'mysql:dbname=cupon;host=localhost');
 define("DB_USER", "root");
 define("DB_PASSWORD", "password");
