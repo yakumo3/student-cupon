@@ -9,7 +9,7 @@ try{
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 	// 重複チェック
-	$stmt = $pdo->prepare("SELECT COUNT(id) AS count FROM users WHERE email = :mail");
+	$stmt = $pdo->prepare("SELECT COUNT(id) AS count FROM students WHERE email = :mail");
 	$stmt->bindValue(':mail', $data['mail'], PDO::PARAM_STR);
 	$stmt->execute();
 	$result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -19,7 +19,7 @@ try{
 	}
 
 	// 登録
-	$stmt = $pdo->prepare("INSERT INTO users (name, sex, email, university, department) VALUES (:name, :sex, :mail, :university, :department)");
+	$stmt = $pdo->prepare("INSERT INTO students (name, sex, email, university, department) VALUES (:name, :sex, :mail, :university, :department)");
 
 	$stmt->bindValue(':name', $data['name'], PDO::PARAM_STR);
 	$stmt->bindValue(':sex', $data['sex'], PDO::PARAM_INT);
@@ -30,20 +30,20 @@ try{
 	$stmt->execute();
 
 	// 登録したユーザのIDを取得
-	$stmt = $pdo->prepare("SELECT id FROM users WHERE email=:mail limit 1");
+	$stmt = $pdo->prepare("SELECT id FROM students WHERE email=:mail limit 1");
 
 	$stmt->bindValue(':mail', $data['mail'], PDO::PARAM_STR);
 	$stmt->execute();
-	$user_id = $stmt->fetchColumn();
+	$student_id = $stmt->fetchColumn();
 
 	// メールとクーポンコードを紐付け
-	$stmt = $pdo->prepare("UPDATE cupons SET user_id=:user_id where user_id is NULL limit 1");
-	$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+	$stmt = $pdo->prepare("UPDATE student_cupons SET student_id=:student_id where student_id is NULL limit 1");
+	$stmt->bindValue(':student_id', $student_id, PDO::PARAM_INT);
 	$stmt->execute();
 
 	// ひも付けたクーポンを取得
-	$stmt = $pdo->prepare("SELECT code FROM cupons WHERE user_id=:user_id limit 1");
-	$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+	$stmt = $pdo->prepare("SELECT code FROM student_cupons WHERE student_id=:student_id limit 1");
+	$stmt->bindValue(':student_id', $student_id, PDO::PARAM_INT);
 	$stmt->execute();
 	$code = $stmt->fetchColumn();
 
