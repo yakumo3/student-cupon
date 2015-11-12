@@ -56,7 +56,7 @@ CROSS 実行委員会　です。
 学割クーポンを発行いたしましたので、
 チケット購入手続きの際に、ご入力ください。
 
-クーポンコード       : $coupon
+クーポンコード       : $code
 チケット販売サイトURL : https://peatix.com/sales/event/125846/tickets
 
 
