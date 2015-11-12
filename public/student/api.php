@@ -50,21 +50,27 @@ try{
 	// メール本文
 	$message = "こんにちは、
 
-CROSS 実行委員会　です。
-ユーザー情報をご登録頂きありがとうございます。
+エンジニアサポート CROSS 2016実行委員会です。
+在学情報をご登録頂きありがとうございます。
 
 学割クーポンを発行いたしましたので、
-チケット購入手続きの際に、ご入力ください。
+チケット購入の際に、ご入力ください。
 
 クーポンコード       : $code
 チケット販売サイトURL : https://peatix.com/sales/event/125846/tickets
 
 
 その他、ご要望、ご質問などは、
-CROSS公式Facebookページ、Twitterアカウントまでお問い合わせください。
+エンジニアサポート CROSS 2016公式Facebookページ、
+Twitterアカウントまでお問い合わせください。
 
 facebook: https://www.facebook.com/engineersupportCROSS
-Twitter : https://twitter.com/e_s_cross"
+Twitter : https://twitter.com/e_s_cross
+
+-- 
+エンジニアサポート CROSS 2016
+http://2016.cross-party.com/
+"
 ;
 
 	$subject = '学割クーポン発行のお知らせ';
